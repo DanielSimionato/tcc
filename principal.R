@@ -9,21 +9,21 @@ if(!require(reshape2)) install.packages("reshape2");require(reshape2)
 if(!require(ggplot2)) install.packages("ggplot2");require(ggplot2)
 if(!require(ranger)) install.packages("ranger");require(ranger)
 
-source("C:/Users/55119/Desktop/scripts/TCC/validacao_cruzada.r")
-source("C:/Users/55119/Desktop/scripts/TCC/workflows.r")
-source("C:/Users/55119/Desktop/scripts/TCC/metricas.r")
-source("C:/Users/55119/Desktop/scripts/TCC/modelos.r")
+source("validacao_cruzada.r")
+source("workflows.r")
+source("metricas.r")
+source("modelos.r")
 
-modelos <- c('ETS','ARIMA')
+modelos <- c('ETS','ARIMA','RF')
 
 dados <- c('100AR50','100AR100','100AR1000','200AR1000',
            '110AR50','110AR100','110AR1000','210AR1000',
-           '101ARMA1000','111ARIMA1000','covid')
+           '101ARMA1000','111ARIMA1000')
 
 
 for (jj in 1:length(modelos)){
   for (ii in 1:length(dados)) {
-    source(sprintf("C:/Users/55119/Desktop/scripts/TCC/data/%s.r",dados[ii]))
+    source(sprintf("data/%s.r",dados[ii]))
     
     final_results <- mclapply(1:length(time_series),function(i) {
       cat("\n\n",i,"\n")
@@ -47,7 +47,7 @@ for (jj in 1:length(modelos)){
       geom_errorbar(aes(ymin = avg - sdev,ymax = avg + sdev),width = .5,
                     position = position_dodge(.9)) +
       labs(x="",y="Ranking Medio",title = "")
-    ggsave(p, file=sprintf("C:/Users/55119/Desktop/scripts/TCC/imagens/%s/%s.png",
+    ggsave(p, file=sprintf("imagens/%s/%s.png",
                            modelos[jj],dados[ii]))
     
     cat("Limpando... \n\n")
