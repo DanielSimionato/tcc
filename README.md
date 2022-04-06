@@ -1,2 +1,2 @@
 # tcc
-rabalho de Conclusão de Curso de Bacharelado em Estatística.
+Trabalho de Conclusão de Curso de Bacharelado em Estatística.
